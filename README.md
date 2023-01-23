@@ -13,3 +13,16 @@ For help getting started with Flutter development, view the
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
+
+### Update Info.plist
+
+```xml
+<key>LSApplicationQueriesSchemes</key>
+<array>
+    <string>undecimus</string>
+    <string>sileo</string>
+    <string>zbra</string>
+    <string>filza</string>
+    <string>activator</string>
+</array>
+```
