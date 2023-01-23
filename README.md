@@ -24,5 +24,6 @@ samples, guidance on mobile development, and a full API reference.
     <string>zbra</string>
     <string>filza</string>
     <string>activator</string>
+    <string>cydia</string>
 </array>
 ```
