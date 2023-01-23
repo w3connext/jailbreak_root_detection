@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'package:jailbreak_root_detection/jailbreak_root_detection.dart';
@@ -40,7 +42,9 @@ class _MyAppState extends State<MyApp> {
         'isJailBroken: ${await JailbreakRootDetection.instance.isJailBroken}');
     print(
         'isRealDevice: ${await JailbreakRootDetection.instance.isRealDevice}');
-    print(
-        'isOnExternalStorage: ${await JailbreakRootDetection.instance.isOnExternalStorage}');
+    if (Platform.isAndroid) {
+      print(
+          'isOnExternalStorage: ${await JailbreakRootDetection.instance.isOnExternalStorage}');
+    }
   }
 }

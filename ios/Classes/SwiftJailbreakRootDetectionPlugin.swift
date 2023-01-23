@@ -1,5 +1,6 @@
 import Flutter
 import UIKit
+import IOSSecuritySuite
 
 public class SwiftJailbreakRootDetectionPlugin: NSObject, FlutterPlugin {
     
@@ -10,23 +11,42 @@ public class SwiftJailbreakRootDetectionPlugin: NSObject, FlutterPlugin {
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        result("iOS " + UIDevice.current.systemVersion)
-        
-        UIDevice.current.isJailBroken
+        switch call.method {
+        case "isJailBroken":
+            result(checkJailBroken())
+            break
+        case "isRealDevice":
+            result(checkRealDevice())
+            break
+        default:
+            result(FlutterMethodNotImplemented)
+        }
     }
     
+    func checkJailBroken() -> Bool {
+        let isJailBroken = UIDevice.current.isJailBroken
+        let amJailbroken = IOSSecuritySuite.amIJailbroken()
+        let amDebugged = IOSSecuritySuite.amIDebugged()
+        let amReverseEngineered = IOSSecuritySuite.amIReverseEngineered()
+        let amProxied = IOSSecuritySuite.amIProxied()
+        
+        print("isJailBroken: \(isJailBroken)")
+        print("amJailbroken: \(amJailbroken)")
+        print("amDebugged: \(amDebugged)")
+        print("amReverseEngineered: \(amReverseEngineered)")
+        print("amProxied: \(amProxied)")
+        
+        return isJailBroken || amJailbroken || amDebugged || amReverseEngineered || amProxied
+    }
     
-//    let isJailBroken = UIDevice.current.isJailBroken
-//                let isSimulator = UIDevice.current.isSimulator
-//                let args = call.arguments
-//
-//                if let ignoreSimulator = args as? Bool {
-//                    if ignoreSimulator && isSimulator && isJailBroken {
-//                        result(false)
-//                    }else{
-//                        result(isJailBroken)
-//                    }
-//                }else{
-//                    result(isJailBroken)
-//                }
+    func checkRealDevice() -> Bool {
+        let isSimulator = UIDevice.current.isSimulator
+        let amEmulator = IOSSecuritySuite.amIRunInEmulator()
+        
+        print("isSimulator: \(isSimulator)")
+        print("amEmulator: \(amEmulator)")
+        
+        return !isSimulator && !amEmulator
+    }
+    
 }
