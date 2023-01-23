@@ -15,6 +15,10 @@ object RootedCheck {
      * @return `true` if the device is rooted, `false` otherwise.
      */
     fun isJailBroken(context: Context?): Boolean {
+        // TODO check
+        // Magisk
+        // Frida
+        // RootCloak
         val check: CheckApiVersion = if (Build.VERSION.SDK_INT >= 23) {
             GreaterThan23()
         } else {
