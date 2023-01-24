@@ -29,6 +29,8 @@ public class SwiftJailbreakRootDetectionPlugin: NSObject, FlutterPlugin {
         let amDebugged = IOSSecuritySuite.amIDebugged()
         let amReverseEngineered = IOSSecuritySuite.amIReverseEngineered()
         let amProxied = IOSSecuritySuite.amIProxied()
+        let fridaFound = FridaChecker.isFound()
+        let cydiaFound = CydiaChecker.isFound()
         
         print("isJailBroken: \(isJailBroken)")
         print("amJailbroken: \(amJailbroken)")
@@ -36,7 +38,13 @@ public class SwiftJailbreakRootDetectionPlugin: NSObject, FlutterPlugin {
         print("amReverseEngineered: \(amReverseEngineered)")
         print("amProxied: \(amProxied)")
         
-        return isJailBroken || amJailbroken || amDebugged || amReverseEngineered || amProxied
+        return isJailBroken
+        || amJailbroken
+        || amDebugged
+        || amReverseEngineered
+        || amProxied
+        || fridaFound
+        || cydiaFound
     }
     
     func checkRealDevice() -> Bool {
