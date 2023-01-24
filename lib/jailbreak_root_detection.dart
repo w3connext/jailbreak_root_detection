@@ -12,15 +12,25 @@ class JailbreakRootDetection {
 
   static JailbreakRootDetection get instance => _instance;
 
+  /// Support iOS and Android
   Future<bool> get isJailBroken async =>
       await methodChannel.invokeMethod<bool>('isJailBroken') ?? false;
 
+  /// Support iOS and Android
   Future<bool> get isRealDevice async =>
       await methodChannel.invokeMethod<bool>('isRealDevice') ?? false;
 
+  /// Support iOS only
+  Future<bool> isTampered(String bundleId) async =>
+      await methodChannel
+          .invokeMethod<bool>('isTampered', {'bundleId': bundleId}) ??
+      false;
+
+  /// Support Android only
   Future<bool> get isOnExternalStorage async =>
       await methodChannel.invokeMethod<bool>('isOnExternalStorage') ?? false;
 
+  /// Support iOS and Android
   Future<bool> get isNotTrust async {
     try {
       final bool jailBroken = await isJailBroken;

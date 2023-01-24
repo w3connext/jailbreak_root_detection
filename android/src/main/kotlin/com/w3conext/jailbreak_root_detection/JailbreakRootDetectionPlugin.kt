@@ -1,7 +1,6 @@
 package com.w3conext.jailbreak_root_detection
 
 import android.app.Activity
-import androidx.annotation.NonNull
 import com.anish.trust_fall.emulator.EmulatorCheck
 import com.anish.trust_fall.externalstorage.ExternalStorageCheck
 import com.anish.trust_fall.rooted.RootedCheck
@@ -32,6 +31,7 @@ class JailbreakRootDetectionPlugin : FlutterPlugin, MethodCallHandler, ActivityA
 
     override fun onMethodCall(call: MethodCall, result: Result) {
         when(call.method) {
+            "test" -> { result.success("hello") }
             "isJailBroken" -> result.success(RootedCheck.isJailBroken(activity))
             "isRealDevice" -> result.success(!EmulatorCheck.isEmulator)
             "isOnExternalStorage" -> result.success(ExternalStorageCheck.isOnExternalStorage(activity))

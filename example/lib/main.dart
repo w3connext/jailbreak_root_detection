@@ -43,8 +43,12 @@ class _MyAppState extends State<MyApp> {
     print(
         'isRealDevice: ${await JailbreakRootDetection.instance.isRealDevice}');
     if (Platform.isAndroid) {
-      print(
-          'isOnExternalStorage: ${await JailbreakRootDetection.instance.isOnExternalStorage}');
+      print('isOnExternalStorage: ${await JailbreakRootDetection.instance.isOnExternalStorage}');
+    }
+
+    if (Platform.isIOS) {
+      const bundleId = 'com.w3conext.jailbreakRootDetectionExample';
+      print('isTampered: ${await JailbreakRootDetection.instance.isTampered(bundleId)}');
     }
   }
 }

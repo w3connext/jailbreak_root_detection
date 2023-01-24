@@ -35,4 +35,7 @@ class JailbreakRootDetection {
         return !isSimulator && !amEmulator
     }
     
+    func checkTampered(bundleId: String) -> Bool {
+        return IOSSecuritySuite.amITampered([.bundleID(bundleId)]).result
+    }
 }
