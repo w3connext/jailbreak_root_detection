@@ -1,6 +1,5 @@
 import Flutter
 import UIKit
-import IOSSecuritySuite
 
 public class SwiftJailbreakRootDetectionPlugin: NSObject, FlutterPlugin {
     
