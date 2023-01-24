@@ -27,3 +27,10 @@ samples, guidance on mobile development, and a full API reference.
     <string>cydia</string>
 </array>
 ```
+
+### Reference
+
+- https://github.com/darvincisec/DetectFrida
+- https://github.com/anish-adm/trust_fall
+- https://github.com/nsNeruno/magisk_detector
+- https://github.com/vvb2060/MagiskDetector/
