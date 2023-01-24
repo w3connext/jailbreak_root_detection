@@ -1,15 +1,6 @@
 package com.w3conext.jailbreak_root_detection
 
 import android.app.Activity
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
-import android.content.ServiceConnection
-import android.os.IBinder
-import android.os.RemoteException
-import android.util.Log
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
 import com.anish.trust_fall.emulator.EmulatorCheck
 import com.anish.trust_fall.externalstorage.ExternalStorageCheck
 import com.anish.trust_fall.rooted.RootedCheck
@@ -23,8 +14,6 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import io.github.vvb2060.magiskdetector.IRemoteService
-import io.github.vvb2060.magiskdetector.RemoteService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -41,54 +30,9 @@ class JailbreakRootDetectionPlugin : FlutterPlugin, MethodCallHandler, ActivityA
 
     private var activity: Activity? = null
 
-    private val connection: ServiceConnection = object : ServiceConnection {
-        override fun onServiceConnected(name: ComponentName, binder: IBinder) {
-            val service: IRemoteService = IRemoteService.Stub.asInterface(binder)
-            try {
-                val su = service.haveSu() > 0
-                val magicMount = service.haveMagicMount() > 0
-                val magiskHide = service.haveMagiskHide() > 0
-
-                Log.i("", "su : $su")
-                Log.i("", "magicMount : $magicMount")
-                Log.i("", "magiskHide : $magiskHide")
-            } catch (e: RemoteException) {
-                Log.e("TAG", "RemoteException", e)
-                channel.invokeMethod(
-                    "onServiceRemoteException",
-                    mapOf("message" to e.message),
-                    null
-                )
-            }
-        }
-
-        override fun onServiceDisconnected(name: ComponentName) {
-            channel.invokeMethod("onServiceDisconnected", null, null)
-        }
-
-        override fun onNullBinding(name: ComponentName) {
-            channel.invokeMethod("onNullBinding", null, null)
-        }
-    }
-
-    private fun onActivityObtained(context: Context) {
-        try {
-            val intent = Intent(context, RemoteService::class.java)
-            val isServiceBound =
-                context.bindService(intent, connection, Context.BIND_AUTO_CREATE)
-            if (!isServiceBound) {
-                channel.invokeMethod("onAppHackedError", null, null)
-            }
-        } catch (ex: Exception) {
-            Log.e(this.javaClass.name, ex.message ?: ex.javaClass.name)
-        }
-    }
-
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "jailbreak_root_detection")
         channel.setMethodCallHandler(this)
-
-        onActivityObtained(flutterPluginBinding.applicationContext)
     }
 
     override fun onMethodCall(call: MethodCall, result: Result) {
@@ -117,7 +61,6 @@ class JailbreakRootDetectionPlugin : FlutterPlugin, MethodCallHandler, ActivityA
     }
 
     override fun onDetachedFromActivity() {
-        activity?.unbindService(connection)
         activity = null
     }
 
@@ -133,11 +76,6 @@ class JailbreakRootDetectionPlugin : FlutterPlugin, MethodCallHandler, ActivityA
             val isSu = NativeLoader.isSu() == 0
             val isMagisk = MagiskChecker.isInstalled()
             val isRooted = frida || isSu || isRootBeer || isMagisk
-
-            Log.i("", "isRootBeer: $isRootBeer")
-            Log.i("", "frida: $frida")
-            Log.i("", "isSu: $isSu")
-            Log.i("", "isMagisk: $isMagisk")
 
             result.success(isRooted)
         }
