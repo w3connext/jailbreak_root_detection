@@ -39,16 +39,19 @@ class _MyAppState extends State<MyApp> {
   void _processCheckJailbreakRoot() async {
     print('isNotTrust: ${await JailbreakRootDetection.instance.isNotTrust}');
     print(
-        'isJailBroken: ${await JailbreakRootDetection.instance.isJailBroken}');
-    print(
-        'isRealDevice: ${await JailbreakRootDetection.instance.isRealDevice}');
+      'isRealDevice: ${await JailbreakRootDetection.instance.isRealDevice}',
+    );
     if (Platform.isAndroid) {
-      print('isOnExternalStorage: ${await JailbreakRootDetection.instance.isOnExternalStorage}');
+      print(
+        'isOnExternalStorage: ${await JailbreakRootDetection.instance.isOnExternalStorage}',
+      );
     }
 
     if (Platform.isIOS) {
       const bundleId = 'com.w3conext.jailbreakRootDetectionExample';
-      print('isTampered: ${await JailbreakRootDetection.instance.isTampered(bundleId)}');
+      print(
+        'isTampered: ${await JailbreakRootDetection.instance.isTampered(bundleId)}',
+      );
     }
   }
 }
