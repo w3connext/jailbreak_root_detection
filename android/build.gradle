@@ -41,10 +41,17 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 21
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "src/main/c/CMakeLists.txt"
+        }
     }
 }
 
 dependencies {
+    implementation "androidx.annotation:annotation:1.5.0"
     implementation 'com.scottyab:rootbeer-lib:0.1.0'
 }
