@@ -1,18 +1,12 @@
 package com.w3conext.jailbreak_root_detection
 
 import android.app.Activity
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
-import android.content.ServiceConnection
-import android.os.IBinder
 import android.util.Log
 import com.anish.trust_fall.emulator.EmulatorCheck
 import com.anish.trust_fall.externalstorage.ExternalStorageCheck
 import com.anish.trust_fall.rooted.RootedCheck
+import com.scottyab.rootbeer.util.QLog
 import com.w3conext.jailbreak_root_detection.frida.NativeLoader
-import com.w3conext.jailbreak_root_detection.frida.RemoteService
-
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -26,8 +20,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 /** JailbreakRootDetectionPlugin */
-class JailbreakRootDetectionPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
-    ServiceConnection {
+class JailbreakRootDetectionPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
     /// The MethodChannel that will the communication between Flutter and native Android
     ///
@@ -35,17 +28,11 @@ class JailbreakRootDetectionPlugin : FlutterPlugin, MethodCallHandler, ActivityA
     /// when the Flutter Engine is detached from the Activity
     private lateinit var channel: MethodChannel
 
-    private var service: IRemoteService? = null
-    private var result: Result? = null
     private var activity: Activity? = null
 
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "jailbreak_root_detection")
         channel.setMethodCallHandler(this)
-
-//        val context = flutterPluginBinding.applicationContext
-//        val intent = Intent(context, RemoteService::class.java)
-//        context.bindService(intent, this, Context.BIND_AUTO_CREATE)
     }
 
     override fun onMethodCall(call: MethodCall, result: Result) {
@@ -77,45 +64,23 @@ class JailbreakRootDetectionPlugin : FlutterPlugin, MethodCallHandler, ActivityA
         activity = null
     }
 
-    override fun onServiceConnected(name: ComponentName?, binder: IBinder?) {
-//        service = IRemoteService.Stub.asInterface(binder)
-//        if (service != null) {
-//            result?.success(getResult())
-//            result = null
-//        }
-    }
-
-    override fun onServiceDisconnected(name: ComponentName?) {
-        service = null
-    }
-
     private fun processJailBroken(result: Result) {
-//        if (service == null) {
-//            this.result = result
-//        } else {
-//            result.success(getResult())
-//        }
 
         val scope = CoroutineScope(Job() + Dispatchers.Default)
         scope.launch {
+
+            QLog.LOGGING_LEVEL = QLog.NONE;
+
             val isRootBeer = RootedCheck.isJailBroken(activity)
             val frida = NativeLoader.detectFrida()
             val isSu = NativeLoader.isSu() == 0
+            val isRooted = frida || isSu || isRootBeer
 
             Log.i("", "isRootBeer: $isRootBeer")
             Log.i("", "frida: $frida")
             Log.i("", "isSu: $isSu")
 
-            val isRooted = frida || isSu || isRootBeer
-
             result.success(isRooted)
         }
-    }
-
-    private fun getResult(): Boolean {
-        val isRootBeer = RootedCheck.isJailBroken(activity)
-        val frida = NativeLoader.detectFrida()
-        val isSu = service!!.haveSu()
-        return !frida && !isSu && isRootBeer
     }
 }

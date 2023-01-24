@@ -13,8 +13,8 @@ class NativeLoader {
         init {
             try {
                 System.loadLibrary("native-lib")
-            } catch (e: Exception){
-                print("Error $e");
+            } catch (e: Exception) {
+                print("Error $e")
             }
         }
     }
