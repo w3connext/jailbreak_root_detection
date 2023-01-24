@@ -20,6 +20,10 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 /** JailbreakRootDetectionPlugin */
 class JailbreakRootDetectionPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
@@ -92,15 +96,20 @@ class JailbreakRootDetectionPlugin : FlutterPlugin, MethodCallHandler, ActivityA
 //            result.success(getResult())
 //        }
 
-        val isRootBeer = RootedCheck.isJailBroken(activity)
-        val frida = NativeLoader.detectFrida()
-        val isSu = NativeLoader.isSu() == 0
+        val scope = CoroutineScope(Job() + Dispatchers.Default)
+        scope.launch {
+            val isRootBeer = RootedCheck.isJailBroken(activity)
+            val frida = NativeLoader.detectFrida()
+            val isSu = NativeLoader.isSu() == 0
 
-        Log.i("", "isRootBeer: $isRootBeer")
-        Log.i("", "frida: $frida")
-        Log.i("", "isSu: $isSu")
+            Log.i("", "isRootBeer: $isRootBeer")
+            Log.i("", "frida: $frida")
+            Log.i("", "isSu: $isSu")
 
-        result.success(frida || isSu || isRootBeer)
+            val isRooted = frida || isSu || isRootBeer
+
+            result.success(isRooted)
+        }
     }
 
     private fun getResult(): Boolean {
