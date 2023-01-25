@@ -1,18 +1,4 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.w3conext.jailbreak_root_detection">
-
-    <application
-        android:allowBackup="false"
-        android:supportsRtl="true"
-        android:zygotePreloadName="io.github.vvb2060.magiskdetector.AppZygote"
-        tools:ignore="AllowBackup,MissingApplicationIcon"
-        tools:targetApi="q">
-
-        <service
-            android:name="io.github.vvb2060.magiskdetector.RemoteService"
-            android:exported="false"
-            android:isolatedProcess="true"
-            android:useAppZygote="true" />
-    </application>
 </manifest>
