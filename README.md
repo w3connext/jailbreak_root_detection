@@ -9,7 +9,7 @@ Uses [RootBeer](https://github.com/scottyab/rootbeer) + DetectFrida for Android 
 In your flutter project add the dependency:
 
 ```yaml
-jailbreak_root_detection: "^0.0.5"
+jailbreak_root_detection: "^0.0.6"
 ```
 
 ## Usage

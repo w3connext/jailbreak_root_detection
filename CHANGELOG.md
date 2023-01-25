@@ -1,3 +1,7 @@
+## 0.0.6
+
+* Change logic check detect frida to jvm
+
 ## 0.0.5
 
 * Change library for check detect frida 
