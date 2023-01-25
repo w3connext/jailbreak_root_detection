@@ -2,7 +2,7 @@
 
 [![pub package](https://img.shields.io/pub/v/jailbreak_root_detection.svg)](https://pub.dartlang.org/packages/jailbreak_root_detection)
 
-Uses [RootBeer](https://github.com/scottyab/rootbeer) + [DetectFrida](https://github.com/darvincisec/DetectFrida) for Android root detection and [IOSSecuritySuite](https://github.com/securing/IOSSecuritySuite) for iOS jailbreak detection.
+Uses [RootBeer](https://github.com/scottyab/rootbeer) + DetectFrida for Android root detection and [IOSSecuritySuite](https://github.com/securing/IOSSecuritySuite) for iOS jailbreak detection.
 
 ## Getting started
 
@@ -50,5 +50,4 @@ final isTampered = await JailbreakRootDetection.instance.isTampered(bundleId);
 
 ### Reference
 
-- https://github.com/darvincisec/DetectFrida
 - https://github.com/anish-adm/trust_fall
