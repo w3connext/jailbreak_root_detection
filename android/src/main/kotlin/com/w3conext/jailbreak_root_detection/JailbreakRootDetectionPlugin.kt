@@ -5,7 +5,7 @@ import com.anish.trust_fall.emulator.EmulatorCheck
 import com.anish.trust_fall.externalstorage.ExternalStorageCheck
 import com.anish.trust_fall.rooted.RootedCheck
 import com.scottyab.rootbeer.util.QLog
-import com.w3conext.jailbreak_root_detection.frida.NativeLoader
+import com.w3conext.jailbreak_root_detection.frida.AntiFridaChecker
 import com.w3conext.jailbreak_root_detection.magisk.MagiskChecker
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -66,16 +66,17 @@ class JailbreakRootDetectionPlugin : FlutterPlugin, MethodCallHandler, ActivityA
 
     private fun processJailBroken(result: Result) {
 
+        val antiFridaChecker = AntiFridaChecker(activity)
+
         val scope = CoroutineScope(Job() + Dispatchers.Default)
         scope.launch {
 
             QLog.LOGGING_LEVEL = QLog.NONE;
 
             val isRootBeer = RootedCheck.isJailBroken(activity)
-            val frida = NativeLoader.detectFrida()
-            val isSu = NativeLoader.isSu() == 0
+            val isFrida = antiFridaChecker.isDetected()
             val isMagisk = MagiskChecker.isInstalled()
-            val isRooted = frida || isSu || isRootBeer || isMagisk
+            val isRooted = isRootBeer || isFrida || isMagisk
 
             result.success(isRooted)
         }

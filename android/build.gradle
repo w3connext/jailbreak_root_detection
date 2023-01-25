@@ -42,14 +42,24 @@ android {
 
     defaultConfig {
         minSdkVersion 21
+
+        externalNativeBuild {
+            cmake {
+                cppFlags ''
+            }
+
+            ndk {
+                abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+            }
+        }
     }
 
-    // TODO uncomment when run: ./gradlew assembleRelease
-//    externalNativeBuild {
-//        cmake {
-//            path "src/main/c/CMakeLists.txt"
-//        }
-//    }
+    externalNativeBuild {
+        cmake {
+            path file('src/main/cpp/CMakeLists.txt')
+            version '3.18.1'
+        }
+    }
 }
 
 dependencies {
