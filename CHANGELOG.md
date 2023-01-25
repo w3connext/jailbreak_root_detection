@@ -1,3 +1,7 @@
+## 0.0.5
+
+* Change library for check detect frida 
+
 ## 0.0.4
 
 * Config jniLibs by "armeabi-v7a", "arm64-v8a", "x86", "x86_64" 
