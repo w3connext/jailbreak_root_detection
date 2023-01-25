@@ -5,6 +5,8 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 
+project(jailbreak_root_detection)
+
 set(can_use_assembler TRUE)
 enable_language(ASM)
 

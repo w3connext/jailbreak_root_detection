@@ -241,11 +241,11 @@ static inline bool fetch_checksum_of_library(const char *filePath, execSection *
         my_memset(&sectHdr, 0, sizeof(Elf_Shdr));
         my_read(fd, &sectHdr, sizeof(Elf_Shdr));
 
-        __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "SectionHeader[%d][%ld]", sectHdr.sh_name, sectHdr.sh_flags);
+        __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "SectionHeader[%d][%u]", sectHdr.sh_name, sectHdr.sh_flags);
 
         //Typically PLT and Text Sections are executable sections which are protected
         if (sectHdr.sh_flags & SHF_EXECINSTR) {
-            __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "SectionHeader[%d][%ld]", sectHdr.sh_name, sectHdr.sh_flags);
+            __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "SectionHeader[%d][%u]", sectHdr.sh_name, sectHdr.sh_flags);
 
             offset[execSectionCount] = sectHdr.sh_offset;
             memsize[execSectionCount] = sectHdr.sh_size;
