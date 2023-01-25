@@ -66,7 +66,7 @@ class JailbreakRootDetectionPlugin : FlutterPlugin, MethodCallHandler, ActivityA
 
     private fun processJailBroken(result: Result) {
 
-        val antiFridaChecker = AntiFridaChecker(activity)
+//        val antiFridaChecker = AntiFridaChecker(activity)
 
         val scope = CoroutineScope(Job() + Dispatchers.Default)
         scope.launch {
@@ -74,7 +74,8 @@ class JailbreakRootDetectionPlugin : FlutterPlugin, MethodCallHandler, ActivityA
             QLog.LOGGING_LEVEL = QLog.NONE;
 
             val isRootBeer = RootedCheck.isJailBroken(activity)
-            val isFrida = antiFridaChecker.isDetected()
+//            val isFrida = antiFridaChecker.isDetected()
+            val isFrida = AntiFridaChecker.checkFrida()
             val isMagisk = MagiskChecker.isInstalled()
             val isRooted = isRootBeer || isFrida || isMagisk
 

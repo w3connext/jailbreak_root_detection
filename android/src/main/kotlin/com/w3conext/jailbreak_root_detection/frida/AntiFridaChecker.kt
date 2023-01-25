@@ -3,6 +3,9 @@ package com.w3conext.jailbreak_root_detection.frida
 import android.content.Context
 import android.util.Log
 import com.w3conext.jailbreak_root_detection.rooted.SuperUserUtility
+import java.io.BufferedReader
+import java.io.File
+import java.io.InputStreamReader
 
 class AntiFridaChecker(
     private val context: Context?
@@ -63,5 +66,55 @@ class AntiFridaChecker(
 
     companion object {
         private const val TAG = "AntiFridaChecker"
+
+
+        fun checkFrida(): Boolean {
+            var isFridaRunning = false
+
+            // check for Frida-related files or directories in the file system
+            val fridaGadget = File("/data/local/tmp/frida-gadget")
+            if (fridaGadget.exists()) {
+                Log.d(TAG, "Frida-gadget found in /data/local/tmp")
+                isFridaRunning = true
+            }
+
+            // check for Frida-related processes
+            try {
+                val process = Runtime.getRuntime().exec("ps")
+                val bufferedReader = BufferedReader(InputStreamReader(process.inputStream))
+                var line: String? = bufferedReader.readLine()
+                while (line != null) {
+                    if (line.contains("frida-server")) {
+                        Log.d(TAG, "Frida-server process found")
+                        isFridaRunning = true
+                        break
+                    }
+                    line = bufferedReader.readLine()
+                }
+            } catch (e: Exception) {
+                Log.d(TAG, "Error checking for Frida-related processes")
+            }
+
+            // check for Frida-related libraries
+            try {
+                val process = Runtime.getRuntime().exec("lsof")
+                val bufferedReader = BufferedReader(InputStreamReader(process.inputStream))
+                var line: String? = bufferedReader.readLine()
+                while (line != null) {
+                    if (line.contains("libfrida-gadget.so")) {
+                        Log.d(TAG, "Frida-gadget library found")
+                        isFridaRunning = true
+                        break
+                    }
+                    line = bufferedReader.readLine()
+                }
+            } catch (e: Exception) {
+                Log.d(TAG, "Error checking for Frida-related libraries")
+            }
+
+            Log.i(TAG, "Frida running: $isFridaRunning")
+
+            return isFridaRunning
+        }
     }
 }
