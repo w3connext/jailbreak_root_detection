@@ -1,3 +1,7 @@
+## 1.0.0
+
+* Remove the function 'checkPSelectFlag' for the reverse engineering checker
+
 ## 0.0.7
 
 * Update version IOSSecuritySuite to 1.9.10
