@@ -1,3 +1,7 @@
+## 0.0.7
+
+* Update version IOSSecuritySuite to 1.9.10
+
 ## 0.0.6
 
 * Change logic check detect frida to jvm

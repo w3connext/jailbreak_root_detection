@@ -5,7 +5,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'jailbreak_root_detection'
-  s.version          = '1.0.0'
+  s.version          = '1.0.1'
   s.summary          = 'Check Jailbreak and Rooted for Android and iOS.'
   s.description      = <<-DESC
 Check Jailbreak and Rooted for Android and iOS.
@@ -16,7 +16,7 @@ Check Jailbreak and Rooted for Android and iOS.
   s.source           = { :path => '.' }
   s.source_files     = 'Classes/**/*'
   s.dependency       'Flutter'
-  s.dependency       'IOSSecuritySuite', '~> 1.9.5'
+  s.dependency       'IOSSecuritySuite', '~> 1.9.10'
   s.platform         = :ios, '11.0'
   s.swift_version    = ["4.0", "4.1", "4.2", "5.0", "5.1", "5.2", "5.3", "5.4", "5.5"]
   # Flutter.framework does not contain a i386 slice.
