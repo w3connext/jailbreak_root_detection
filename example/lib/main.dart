@@ -16,6 +16,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  String _result = '';
+
   @override
   void initState() {
     super.initState();
@@ -29,29 +31,48 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: const Center(
-          child: Text('Running on: '),
+        body: Center(
+          child: Column(
+            children: [
+              Text(_result),
+              ElevatedButton(
+                onPressed: () => _processCheckJailbreakRoot,
+                child: const Text('Check'),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
   void _processCheckJailbreakRoot() async {
-    print('isNotTrust: ${await JailbreakRootDetection.instance.isNotTrust}');
-    print(
-      'isRealDevice: ${await JailbreakRootDetection.instance.isRealDevice}',
-    );
+    final isNotTrust = await JailbreakRootDetection.instance.isNotTrust;
+    final isRealDevice = await JailbreakRootDetection.instance.isRealDevice;
+    bool isOnExternalStorage = false;
+    try {
+      isOnExternalStorage =
+          await JailbreakRootDetection.instance.isOnExternalStorage;
+    } catch (e) {
+      print(e);
+    }
+    const bundleId = 'com.w3conext.jailbreakRootDetectionExample';
+    final isTampered =
+        await JailbreakRootDetection.instance.isTampered(bundleId);
+
+    print('isNotTrust: $isNotTrust');
+    print('isRealDevice: $isRealDevice');
+    _result += 'isNotTrust: $isNotTrust\n';
+    _result += 'isRealDevice: $isRealDevice\n';
     if (Platform.isAndroid) {
-      print(
-        'isOnExternalStorage: ${await JailbreakRootDetection.instance.isOnExternalStorage}',
-      );
+      print('isOnExternalStorage: $isOnExternalStorage');
+      _result += 'isOnExternalStorage: $isOnExternalStorage\n';
+    }
+    if (Platform.isIOS) {
+      print('isTampered: $isTampered');
+      _result += 'isTampered: $isTampered\n';
     }
 
-    if (Platform.isIOS) {
-      const bundleId = 'com.w3conext.jailbreakRootDetectionExample';
-      print(
-        'isTampered: ${await JailbreakRootDetection.instance.isTampered(bundleId)}',
-      );
-    }
+    setState(() {});
   }
 }

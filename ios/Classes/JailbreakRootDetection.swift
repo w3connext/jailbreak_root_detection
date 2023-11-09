@@ -14,7 +14,7 @@ class JailbreakRootDetection {
         let isJailBroken = UIDevice.current.isJailBroken
         let amJailbroken = IOSSecuritySuite.amIJailbroken()
         let amDebugged = IOSSecuritySuite.amIDebugged()
-        let amReverseEngineered = IOSSecuritySuite.amIReverseEngineered()
+        let amReverseEngineered = ReverseEngineeringChecker.amIReverseEngineered()
         let amProxied = IOSSecuritySuite.amIProxied()
         let fridaFound = FridaChecker.isFound()
         let cydiaFound = CydiaChecker.isFound()
