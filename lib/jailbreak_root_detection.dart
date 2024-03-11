@@ -3,6 +3,51 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+enum JailbreakIssue {
+  jailbreak,
+  notRealDevice,
+  proxied,
+  debugged,
+  reverseEngineered,
+  fridaFound,
+  cydiaFound,
+  tampered,
+  onExternalStorage,
+  unknown;
+
+  static JailbreakIssue fromString(String value) {
+    if (value == "jailbreak") {
+      return JailbreakIssue.jailbreak;
+    }
+    if (value == "notRealDevice") {
+      return JailbreakIssue.notRealDevice;
+    }
+    if (value == "proxied") {
+      return JailbreakIssue.proxied;
+    }
+    if (value == "debugged") {
+      return JailbreakIssue.debugged;
+    }
+    if (value == "reverseEngineered") {
+      return JailbreakIssue.reverseEngineered;
+    }
+    if (value == "fridaFound") {
+      return JailbreakIssue.fridaFound;
+    }
+    if (value == "cydiaFound") {
+      return JailbreakIssue.cydiaFound;
+    }
+    if (value == "tampered") {
+      return JailbreakIssue.tampered;
+    }
+    if (value == "onExternalStorage") {
+      return JailbreakIssue.onExternalStorage;
+    }
+
+    return JailbreakIssue.unknown;
+  }
+}
+
 class JailbreakRootDetection {
   /// The method channel used to interact with the native platform.
   @visibleForTesting
@@ -11,6 +56,14 @@ class JailbreakRootDetection {
   static final JailbreakRootDetection _instance = JailbreakRootDetection();
 
   static JailbreakRootDetection get instance => _instance;
+
+  Future<List<JailbreakIssue>> get checkForIssues async {
+    final issues =
+        await methodChannel.invokeMethod<List<dynamic>>('checkForIssues');
+
+    return issues?.map((e) => JailbreakIssue.fromString(e ?? '')).toList() ??
+        [];
+  }
 
   /// Support iOS and Android
   Future<bool> get isJailBroken async =>

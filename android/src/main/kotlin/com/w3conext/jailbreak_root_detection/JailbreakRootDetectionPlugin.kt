@@ -37,6 +37,7 @@ class JailbreakRootDetectionPlugin : FlutterPlugin, MethodCallHandler, ActivityA
 
     override fun onMethodCall(call: MethodCall, result: Result) {
         when (call.method) {
+            "checkForIssues" -> processCheckIssues(result)
             "isJailBroken" -> processJailBroken(result)
             "isRealDevice" -> result.success(!EmulatorCheck.isEmulator)
             "isOnExternalStorage" -> result.success(
@@ -62,6 +63,37 @@ class JailbreakRootDetectionPlugin : FlutterPlugin, MethodCallHandler, ActivityA
 
     override fun onDetachedFromActivity() {
         activity = null
+    }
+
+    private fun processCheckIssues(result: Result) {
+        val scope = CoroutineScope(Job() + Dispatchers.Default)
+        scope.launch {
+
+            QLog.LOGGING_LEVEL = QLog.NONE;
+
+            val issues = mutableListOf<String>()
+            if (RootedCheck.isJailBroken(activity)) {
+                issues.add("jailbreak")
+            }
+
+            if (AntiFridaChecker.checkFrida()) {
+                issues.add("fridaFound")
+            }
+
+            if (MagiskChecker.isInstalled()) {
+                issues.add("magiskFound")
+            }
+
+            if (EmulatorCheck.isEmulator) {
+                issues.add("notRealDevice")
+            }
+
+            if (ExternalStorageCheck.isOnExternalStorage(activity)) {
+                issues.add("onExternalStorage")
+            }
+
+            result.success(issues)
+        }
     }
 
     private fun processJailBroken(result: Result) {
