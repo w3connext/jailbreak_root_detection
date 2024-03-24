@@ -1,3 +1,7 @@
+## 1.1.0
+
+* Add method `checkForIssues`
+
 ## 1.0.0
 
 * Remove the function 'checkPSelectFlag' for the reverse engineering checker

@@ -9,7 +9,7 @@ Uses [RootBeer](https://github.com/scottyab/rootbeer) + DetectFrida for Android 
 In your flutter project add the dependency:
 
 ```yaml
-jailbreak_root_detection: "^1.0.0"
+jailbreak_root_detection: "^1.1.0"
 ```
 
 ## Usage
@@ -21,6 +21,7 @@ final isNotTrust = await JailbreakRootDetection.instance.isNotTrust;
 final isJailBroken = await JailbreakRootDetection.instance.isJailBroken;
 final isRealDevice = await JailbreakRootDetection.instance.isRealDevice;
 final isOnExternalStorage = await JailbreakRootDetection.instance.isOnExternalStorage;
+final checkForIssues = await JailbreakRootDetection.instance.checkForIssues;
 ```
 
 ### iOS
@@ -43,6 +44,7 @@ final isOnExternalStorage = await JailbreakRootDetection.instance.isOnExternalSt
 final isNotTrust = await JailbreakRootDetection.instance.isNotTrust;
 final isJailBroken = await JailbreakRootDetection.instance.isJailBroken;
 final isRealDevice = await JailbreakRootDetection.instance.isRealDevice;
+final checkForIssues = await JailbreakRootDetection.instance.checkForIssues;
 
 final bundleId = 'my-bundle-id'; // Ex: final bundleId = 'com.w3conext.jailbreakRootDetectionExample'
 final isTampered = await JailbreakRootDetection.instance.isTampered(bundleId);
