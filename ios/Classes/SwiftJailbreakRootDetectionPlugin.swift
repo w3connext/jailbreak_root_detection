@@ -22,6 +22,38 @@ public class SwiftJailbreakRootDetectionPlugin: NSObject, FlutterPlugin {
         let args = call.arguments as? Dictionary<String, String>
         
         switch call.method {
+        case "checkForIssues":
+            var issues = [String]()
+            if self.jailbreakRootDetection?.checkJail() == true {
+                issues.append("jailbreak")
+            }
+
+            if self.jailbreakRootDetection?.checkDebugged() == true {
+                issues.append("debugged")
+            }
+
+            if self.jailbreakRootDetection?.checkReverseEngineered() == true {
+                issues.append("reverseEngineered")
+            }
+
+            if self.jailbreakRootDetection?.checkProxied() == true {
+                issues.append("proxied")
+            }
+
+            if self.jailbreakRootDetection?.checkFrida() == true {
+                issues.append("fridaFound")
+            }
+
+            if self.jailbreakRootDetection?.checkCydia() == true {
+                issues.append("cydiaFound")
+            }
+
+            if self.jailbreakRootDetection?.checkRealDevice() == false {
+                issues.append("notRealDevice")
+            }
+
+            result(issues)
+            break
         case "isJailBroken":
             result(self.jailbreakRootDetection?.checkJailBroken())
             break
