@@ -11,7 +11,6 @@ object EmulatorCheck {
                 || Build.MODEL.contains("sdk")
                 || Build.MODEL.contains("Emulator")
                 || Build.PRODUCT.contains("sdk")
-                || Build.USER.contains("android-build")
                 || Build.MODEL.contains("Android SDK built for x86")
                 || Build.MANUFACTURER.contains("Genymotion")
                 || Build.MANUFACTURER.contains("unknown")

@@ -49,26 +49,24 @@ class _MyAppState extends State<MyApp> {
   void _processCheckJailbreakRoot() async {
     final isNotTrust = await JailbreakRootDetection.instance.isNotTrust;
     final isRealDevice = await JailbreakRootDetection.instance.isRealDevice;
-    bool isOnExternalStorage = false;
-    try {
-      isOnExternalStorage =
-          await JailbreakRootDetection.instance.isOnExternalStorage;
-    } catch (e) {
-      print(e);
-    }
-    const bundleId = 'com.w3conext.jailbreakRootDetectionExample';
-    final isTampered =
-        await JailbreakRootDetection.instance.isTampered(bundleId);
-
     print('isNotTrust: $isNotTrust');
     print('isRealDevice: $isRealDevice');
     _result += 'isNotTrust: $isNotTrust\n';
     _result += 'isRealDevice: $isRealDevice\n';
     if (Platform.isAndroid) {
-      print('isOnExternalStorage: $isOnExternalStorage');
-      _result += 'isOnExternalStorage: $isOnExternalStorage\n';
+      try {
+        bool isOnExternalStorage =
+            await JailbreakRootDetection.instance.isOnExternalStorage;
+        print('isOnExternalStorage: $isOnExternalStorage');
+        _result += 'isOnExternalStorage: $isOnExternalStorage\n';
+      } catch (e) {
+        print(e);
+      }
     }
     if (Platform.isIOS) {
+      const bundleId = 'com.w3conext.jailbreakRootDetectionExample';
+      final isTampered =
+          await JailbreakRootDetection.instance.isTampered(bundleId);
       print('isTampered: $isTampered');
       _result += 'isTampered: $isTampered\n';
     }
