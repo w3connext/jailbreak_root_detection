@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-
 import 'package:jailbreak_root_detection/jailbreak_root_detection.dart';
 
 void main() {
