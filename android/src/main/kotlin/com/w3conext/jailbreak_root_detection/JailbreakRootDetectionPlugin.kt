@@ -1,10 +1,12 @@
 package com.w3conext.jailbreak_root_detection
 
 import android.app.Activity
+import android.os.Debug
 import com.anish.trust_fall.emulator.EmulatorCheck
 import com.anish.trust_fall.externalstorage.ExternalStorageCheck
 import com.anish.trust_fall.rooted.RootedCheck
 import com.scottyab.rootbeer.util.QLog
+import com.w3conext.jailbreak_root_detection.debuger.Debugger
 import com.w3conext.jailbreak_root_detection.frida.AntiFridaChecker
 import com.w3conext.jailbreak_root_detection.magisk.MagiskChecker
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -84,6 +86,10 @@ class JailbreakRootDetectionPlugin : FlutterPlugin, MethodCallHandler, ActivityA
                 issues.add("magiskFound")
             }
 
+            if (Debugger.isDebugged()) {
+                issues.add("debugged")
+            }
+
             if (EmulatorCheck.isEmulator) {
                 issues.add("notRealDevice")
             }
@@ -105,7 +111,8 @@ class JailbreakRootDetectionPlugin : FlutterPlugin, MethodCallHandler, ActivityA
             val isRootBeer = RootedCheck.isJailBroken(activity)
             val isFrida = AntiFridaChecker.checkFrida()
             val isMagisk = MagiskChecker.isInstalled()
-            val isRooted = isRootBeer || isFrida || isMagisk
+            val isDebugged = Debugger.isDebugged()
+            val isRooted = isRootBeer || isFrida || isMagisk || isDebugged
 
             result.success(isRooted)
         }

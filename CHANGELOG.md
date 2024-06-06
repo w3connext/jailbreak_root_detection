@@ -1,3 +1,7 @@
+## 1.1.2
+
+* Check debugger on android
+
 ## 1.1.1
 
 * Fixed bug pixel

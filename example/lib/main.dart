@@ -46,6 +46,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _processCheckJailbreakRoot() async {
+    _result = '';
     final isNotTrust = await JailbreakRootDetection.instance.isNotTrust;
     final isRealDevice = await JailbreakRootDetection.instance.isRealDevice;
     print('isNotTrust: $isNotTrust');
@@ -68,6 +69,13 @@ class _MyAppState extends State<MyApp> {
           await JailbreakRootDetection.instance.isTampered(bundleId);
       print('isTampered: $isTampered');
       _result += 'isTampered: $isTampered\n';
+    }
+
+    final checkForIssues = await JailbreakRootDetection.instance.checkForIssues;
+    print('checkForIssues: $checkForIssues');
+    for (final issue in checkForIssues) {
+      print('issue: ${issue.toString()}');
+      _result += '$issue\n';
     }
 
     setState(() {});
