@@ -13,7 +13,6 @@ enum JailbreakIssue {
   cydiaFound,
   tampered,
   onExternalStorage,
-  developerModeEnabled,
   unknown;
 
   static JailbreakIssue fromString(String value) {
@@ -44,9 +43,6 @@ enum JailbreakIssue {
     if (value == "onExternalStorage") {
       return JailbreakIssue.onExternalStorage;
     }
-    if (value == "developerModeEnabled") {
-      return JailbreakIssue.developerModeEnabled;
-    }
 
     return JailbreakIssue.unknown;
   }
@@ -76,6 +72,10 @@ class JailbreakRootDetection {
   /// Support iOS and Android
   Future<bool> get isRealDevice async =>
       await methodChannel.invokeMethod<bool>('isRealDevice') ?? false;
+
+  /// Support Android
+  Future<bool> get isDevMode async =>
+      await methodChannel.invokeMethod<bool>('isDevMode') ?? false;
 
   /// Support iOS only
   Future<bool> isTampered(String bundleId) async =>
