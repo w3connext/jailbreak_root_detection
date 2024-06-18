@@ -1,3 +1,7 @@
+## 1.1.3
+
+* Add function is debugger on iOS and Android
+
 ## 1.1.2
 
 * Check debugger on android
