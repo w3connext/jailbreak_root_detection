@@ -60,6 +60,9 @@ public class SwiftJailbreakRootDetectionPlugin: NSObject, FlutterPlugin {
         case "isRealDevice":
             result(self.jailbreakRootDetection?.checkRealDevice())
             break
+        case "isDebugged":
+            result(self.jailbreakRootDetection?.checkDebugged())
+            break
         case "isTampered":
             guard let bundleId = args?["bundleId"] else {
                 result(FlutterError(code: "BI01", message: "Bundle ID not found", details: ""))

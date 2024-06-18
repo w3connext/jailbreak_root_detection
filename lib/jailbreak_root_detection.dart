@@ -8,6 +8,7 @@ enum JailbreakIssue {
   notRealDevice,
   proxied,
   debugged,
+  devMode,
   reverseEngineered,
   fridaFound,
   cydiaFound,
@@ -27,6 +28,9 @@ enum JailbreakIssue {
     }
     if (value == "debugged") {
       return JailbreakIssue.debugged;
+    }
+    if (value == "devMode") {
+      return JailbreakIssue.devMode;
     }
     if (value == "reverseEngineered") {
       return JailbreakIssue.reverseEngineered;
@@ -76,6 +80,10 @@ class JailbreakRootDetection {
   /// Support Android
   Future<bool> get isDevMode async =>
       await methodChannel.invokeMethod<bool>('isDevMode') ?? false;
+
+  /// Support iOS and Android
+  Future<bool> get isDebugged async =>
+      await methodChannel.invokeMethod<bool>('isDebugged') ?? false;
 
   /// Support iOS only
   Future<bool> isTampered(String bundleId) async =>

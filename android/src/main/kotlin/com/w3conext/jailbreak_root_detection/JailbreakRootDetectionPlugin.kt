@@ -1,11 +1,12 @@
 package com.w3conext.jailbreak_root_detection
 
 import android.app.Activity
-import android.provider.Settings
 import com.anish.trust_fall.emulator.EmulatorCheck
 import com.anish.trust_fall.externalstorage.ExternalStorageCheck
 import com.anish.trust_fall.rooted.RootedCheck
 import com.scottyab.rootbeer.util.QLog
+import com.w3conext.jailbreak_root_detection.debuger.Debugger
+import com.w3conext.jailbreak_root_detection.devmode.DevMode
 import com.w3conext.jailbreak_root_detection.frida.AntiFridaChecker
 import com.w3conext.jailbreak_root_detection.magisk.MagiskChecker
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -44,7 +45,9 @@ class JailbreakRootDetectionPlugin : FlutterPlugin, MethodCallHandler, ActivityA
             "isOnExternalStorage" -> result.success(
                 ExternalStorageCheck.isOnExternalStorage(activity)
             )
-            "isDevMode" -> result.success(isDevMode())
+
+            "isDevMode" -> result.success(DevMode.isDevMode(activity))
+            "isDebugged" -> result.success(Debugger.isDebugged(activity))
             else -> result.notImplemented()
         }
     }
@@ -82,6 +85,14 @@ class JailbreakRootDetectionPlugin : FlutterPlugin, MethodCallHandler, ActivityA
                 issues.add("fridaFound")
             }
 
+            if (Debugger.isDebugged(activity)) {
+                issues.add("debugged")
+            }
+
+            if (DevMode.isDevMode(activity)) {
+                issues.add("devMode")
+            }
+
             if (MagiskChecker.isInstalled()) {
                 issues.add("magiskFound")
             }
@@ -111,13 +122,5 @@ class JailbreakRootDetectionPlugin : FlutterPlugin, MethodCallHandler, ActivityA
 
             result.success(isRooted)
         }
-    }
-
-    private fun isDevMode(): Boolean {
-        val context = activity ?: return false
-        return Settings.Secure.getInt(
-            context.contentResolver,
-            Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0
-        ) != 0
     }
 }

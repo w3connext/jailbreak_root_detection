@@ -13,7 +13,6 @@ class JailbreakRootDetection {
     func checkJailBroken() -> Bool {
         let isJailBroken = UIDevice.current.isJailBroken
         let amJailbroken = IOSSecuritySuite.amIJailbroken()
-        let amDebugged = IOSSecuritySuite.amIDebugged()
         let amReverseEngineered = ReverseEngineeringChecker.amIReverseEngineered()
         let amProxied = IOSSecuritySuite.amIProxied()
         let fridaFound = FridaChecker.isFound()
@@ -21,7 +20,6 @@ class JailbreakRootDetection {
         
         return isJailBroken
         || amJailbroken
-        || amDebugged
         || amReverseEngineered
         || amProxied
         || fridaFound
