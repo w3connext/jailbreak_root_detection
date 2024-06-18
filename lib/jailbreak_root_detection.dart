@@ -13,6 +13,7 @@ enum JailbreakIssue {
   cydiaFound,
   tampered,
   onExternalStorage,
+  developerModeEnabled,
   unknown;
 
   static JailbreakIssue fromString(String value) {
@@ -42,6 +43,9 @@ enum JailbreakIssue {
     }
     if (value == "onExternalStorage") {
       return JailbreakIssue.onExternalStorage;
+    }
+    if (value == "developerModeEnabled") {
+      return JailbreakIssue.developerModeEnabled;
     }
 
     return JailbreakIssue.unknown;
