@@ -73,6 +73,10 @@ class JailbreakRootDetection {
   Future<bool> get isRealDevice async =>
       await methodChannel.invokeMethod<bool>('isRealDevice') ?? false;
 
+  /// Support Android
+  Future<bool> get isDevMode async =>
+      await methodChannel.invokeMethod<bool>('isDevMode') ?? false;
+
   /// Support iOS only
   Future<bool> isTampered(String bundleId) async =>
       await methodChannel
