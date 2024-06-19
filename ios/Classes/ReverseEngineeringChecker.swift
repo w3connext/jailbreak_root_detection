@@ -67,7 +67,11 @@ class ReverseEngineeringChecker {
     private static func checkExistenceOfSuspiciousFiles() -> CheckResult {
 
         let paths = [
-            "/usr/sbin/frida-server"
+            "/usr/sbin/frida-server",
+            "/private/etc/dpkg/origins/debian",
+            "/private/var/lib/cydia/metadata.plist",
+            "/private/var/mobile/Library/Preferences/com.saurik.CyDelete.plist",
+            "/private/var/stash"
         ]
 
         for path in paths {
