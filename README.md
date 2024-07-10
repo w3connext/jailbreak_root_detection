@@ -22,6 +22,7 @@ final isJailBroken = await JailbreakRootDetection.instance.isJailBroken;
 final isRealDevice = await JailbreakRootDetection.instance.isRealDevice;
 final isOnExternalStorage = await JailbreakRootDetection.instance.isOnExternalStorage;
 final checkForIssues = await JailbreakRootDetection.instance.checkForIssues;
+final isDevMode = await JailbreakRootDetection.instance.isDevMode;
 ```
 
 ### iOS
