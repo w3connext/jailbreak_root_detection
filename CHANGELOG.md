@@ -1,3 +1,7 @@
+## 1.1.4
+
+* Enhance security by adding more suspicious paths in iOS
+
 ## 1.1.3
 
 * Add function is debugger on iOS and Android
