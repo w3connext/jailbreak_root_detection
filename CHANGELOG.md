@@ -1,3 +1,7 @@
+## 1.1.5
+
+* check has property namespace for Android
+
 ## 1.1.4
 
 * Enhance security by adding more suspicious paths in iOS

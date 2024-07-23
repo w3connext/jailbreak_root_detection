@@ -25,6 +25,10 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
+    if (project.android.hasProperty("namespace")) {
+        namespace 'com.w3conext.jailbreak_root_detection'
+    }
+
     compileSdkVersion 33
 
     compileOptions {
@@ -43,13 +47,7 @@ android {
     defaultConfig {
         minSdkVersion 21
     }
-
-//    externalNativeBuild {
-//        cmake {
-//            path file('src/main/cpp/CMakeLists.txt')
-//            version '3.22.1'
-//        }
-//    }
+    
 }
 
 dependencies {
