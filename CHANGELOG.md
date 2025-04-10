@@ -1,3 +1,7 @@
+## 1.1.6
+
+* fix: TARGET_OS_SIMULATOR is deprecated in swift
+
 ## 1.1.5
 
 * check has property namespace for Android
