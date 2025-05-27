@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
             children: [
               Text(_result),
               ElevatedButton(
-                onPressed: () => _processCheckJailbreakRoot,
+                onPressed: _processCheckJailbreakRoot,
                 child: const Text('Check'),
               ),
             ],
