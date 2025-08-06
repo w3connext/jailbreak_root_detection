@@ -189,3 +189,4 @@ lint/tmp/
 # Android Profiling
 *.hprof
 
+.dart_tool/
