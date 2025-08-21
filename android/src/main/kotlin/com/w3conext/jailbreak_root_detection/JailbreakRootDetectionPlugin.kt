@@ -1,6 +1,5 @@
 package com.w3conext.jailbreak_root_detection
 
-import android.app.Activity
 import android.content.Context
 import com.anish.trust_fall.emulator.EmulatorCheck
 import com.anish.trust_fall.externalstorage.ExternalStorageCheck
@@ -11,8 +10,6 @@ import com.w3conext.jailbreak_root_detection.devmode.DevMode
 import com.w3conext.jailbreak_root_detection.frida.AntiFridaChecker
 import com.w3conext.jailbreak_root_detection.magisk.MagiskChecker
 import io.flutter.embedding.engine.plugins.FlutterPlugin
-import io.flutter.embedding.engine.plugins.activity.ActivityAware
-import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
