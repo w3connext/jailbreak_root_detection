@@ -1,25 +1,21 @@
-group 'com.w3conext.jailbreak_root_detection'
-version '1.0-SNAPSHOT'
-
 buildscript {
     ext.kotlin_version = '1.8.22'
-    repositories {
-        google()
-        mavenCentral()
-    }
+}
 
-    dependencies {
-        classpath 'com.android.tools.build:gradle:8.1.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
 }
 
 allprojects {
     repositories {
+        gradlePluginPortal()
         google()
         mavenCentral()
     }
 }
+
+group 'com.w3conext.jailbreak_root_detection'
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
@@ -29,7 +25,7 @@ android {
         namespace 'com.w3conext.jailbreak_root_detection'
     }
 
-    compileSdkVersion 35
+    compileSdkVersion 34
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
@@ -37,17 +33,20 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = '11'
+        jvmTarget = "11"
     }
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+        //test.java.srcDirs += 'src/test/kotlin'
     }
 
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 26
     }
-    
+    lintOptions {
+        disable 'InvalidPackage'
+    }
 }
 
 dependencies {
