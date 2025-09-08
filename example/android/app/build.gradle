@@ -24,11 +24,16 @@ if (flutterVersionName == null) {
 
 android {
     compileSdkVersion 36
-    ndkVersion "25.0.8775105"
+    ndkVersion "27.0.12077973"
+    namespace 'com.w3conext.jailbreak_root_detection_example'
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_21
-        targetCompatibility JavaVersion.VERSION_21
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = '11'
     }
 
     sourceSets {
