@@ -2,20 +2,12 @@ group 'com.w3conext.jailbreak_root_detection'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.9.10'
-    repositories {
-        google()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:8.7.3'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
+    ext.kotlin_version = '2.2.0'
 }
 
 allprojects {
     repositories {
+        gradlePluginPortal()
         google()
         mavenCentral()
     }
@@ -29,13 +21,15 @@ android {
         namespace 'com.w3conext.jailbreak_root_detection'
     }
 
+    compileSdkVersion 36
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = '17'
+        jvmTarget = "17"
     }
 
     sourceSets {
@@ -44,13 +38,16 @@ android {
 
     defaultConfig {
         minSdkVersion 21
-        compileSdk 33
     }
-    
+
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+
 }
 
 dependencies {
     implementation "androidx.annotation:annotation:1.9.1"
     implementation 'com.scottyab:rootbeer-lib:0.1.1'
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2"
 }
