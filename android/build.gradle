@@ -1,8 +1,10 @@
-group 'com.w3conext.jailbreak_root_detection'
-version '1.0-SNAPSHOT'
-
 buildscript {
-    ext.kotlin_version = '2.2.0'
+    ext.kotlin_version = '1.8.22'
+}
+
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
 }
 
 allprojects {
@@ -13,6 +15,8 @@ allprojects {
     }
 }
 
+group 'com.w3conext.jailbreak_root_detection'
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
@@ -21,33 +25,32 @@ android {
         namespace 'com.w3conext.jailbreak_root_detection'
     }
 
-    compileSdkVersion 36
+    compileSdkVersion 34
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "11"
     }
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+        //test.java.srcDirs += 'src/test/kotlin'
     }
 
     defaultConfig {
         minSdkVersion 21
     }
-
     lintOptions {
         disable 'InvalidPackage'
     }
-
 }
 
 dependencies {
     implementation "androidx.annotation:annotation:1.9.1"
     implementation 'com.scottyab:rootbeer-lib:0.1.1'
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
 }

@@ -115,7 +115,6 @@ Temporary Items
 # Generated files
 bin/
 gen/
-out/
 #  Uncomment the following line in case you need and you don't have the release build type files in your app
 # release/
 
@@ -189,57 +188,7 @@ lint/tmp/
 # Android Profiling
 *.hprof
 
-# Miscellaneous
-*.class
-*.log
-*.pyc
-*.swp
-.DS_Store
-.atom/
-.build/
-.buildlog/
-.history
-.svn/
-.swiftpm/
-migrate_working_dir/
-scripts/release/.azure-token.txt
-
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
-
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
-
 # Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
+# Libraries should not include pubspec.lock, per https://dart.dev/guides/libraries/private-files#pubspec-lock.
+/pubspec.lock
 .dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.pub-cache/
-.pub/
-/build/
-pubspec.lock
-devtools_options.yaml
-
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
-macos/Flutter/GeneratedPluginRegistrant.swift
-windows/flutter/generated_plugin_registrant.cc
-windows/flutter/generated_plugins.cmake
-windows/
-macos/
-linux/
-
-# Coverage
-coverage/
-
-# FVM Version Cache
-.fvm/
