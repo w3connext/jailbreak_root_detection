@@ -1,3 +1,11 @@
+## 1.2.0
+
+* Added support for 16 KB page sizes
+* Upgraded compileSdk and Gradle version
+* Added background execution support
+* Added null-safety support in `ExternalStorageCheck.kt`
+* Acknowledgements: Thanks to @n0ks, @maeddin, @vicajilau, @anderscheow, and @bjlf12 for their PRs 🙏
+
 ## 1.1.6
 
 * fix: TARGET_OS_SIMULATOR is deprecated in swift
@@ -40,15 +48,15 @@
 
 ## 0.0.5
 
-* Change library for check detect frida 
+* Change library for check detect frida
 
 ## 0.0.4
 
-* Config jniLibs by "armeabi-v7a", "arm64-v8a", "x86", "x86_64" 
+* Config jniLibs by "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
 
 ## 0.0.3
 
-* Config ndk abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64" 
+* Config ndk abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
 
 ## 0.0.2
 
