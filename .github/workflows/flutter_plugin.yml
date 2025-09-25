@@ -38,6 +38,29 @@ jobs:
         working-directory: example
         run: flutter build apk --debug
 
+      - name: List .so 16KB page-size compatibility
+        shell: bash
+        run: |
+          APK="example/build/app/outputs/flutter-apk/app-debug.apk"
+          unzip -o "$APK" -d output_apk >/dev/null
+
+          while IFS= read -r -d '' so; do
+            aligns=$(readelf -Wl "$so" | awk '/Program Headers/{ph=1} ph && /LOAD/ {for (i=1;i<=NF;i++) if ($i=="Align") print $(i+1)}')
+            ok=true
+            for a in $aligns; do
+              if [[ "$a" =~ ^0x ]]; then val=$((a)); else val=$a; fi
+              if [ "$val" -lt 16384 ]; then
+                ok=false
+                break
+              fi
+            done
+            if $ok; then
+              echo "[OK]    $so (16KB SAFE)"
+            else
+              echo "[FAIL]  $so (NOT 16KB SAFE)"
+            fi
+          done < <(find output_apk -name "*.so" -print0)
+
   build_ios:
     runs-on: macos-latest
     steps:
