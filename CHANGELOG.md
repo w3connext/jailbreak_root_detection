@@ -1,3 +1,8 @@
+## 1.2.0+1
+
+* Improve Android and SDK Compatibility Without Over-Upgrading
+* Acknowledgements: Thanks to @vicajilau for their PRs 🙏
+
 ## 1.2.0
 
 * Added support for 16 KB page sizes
