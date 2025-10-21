@@ -14,6 +14,12 @@ jailbreak_root_detection: "^1.2.0+1"
 
 ## Usage
 
+### Important: Test on Real Devices Only
+
+This package must be tested on a real device (physical device).
+
+Running on an emulator or simulator may cause false positives — for example, the detection may incorrectly report that the device is jailbroken or rooted.
+
 ### Android
 
 ```dart
